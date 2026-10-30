@@ -1,0 +1,160 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "UserSettings": {
+      "title": "UserSettings",
+      "description": "User preferences and risk configurations",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "defaultMarket": { "type": "string" },
+        "theme": { "type": "string" },
+        "maxRiskPerTrade": { "type": "number" },
+        "maxDailyLoss": { "type": "number" },
+        "maxDrawdown": { "type": "number" },
+        "maxPortfolioExposure": { "type": "number" },
+        "defaultStartingCapital": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "WatchlistItem": {
+      "title": "WatchlistItem",
+      "description": "User saved watchlist entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "symbol": { "type": "string" },
+        "name": { "type": "string" },
+        "market": { "type": "string" },
+        "notes": { "type": "string" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "symbol", "market"]
+    },
+    "PaperAccount": {
+      "title": "PaperAccount",
+      "description": "Paper trading simulated cash and equity state",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "balance": { "type": "number" },
+        "initialBalance": { "type": "number" },
+        "currency": { "type": "string" },
+        "realizedPnl": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "balance", "initialBalance", "currency"]
+    },
+    "PaperOrder": {
+      "title": "PaperOrder",
+      "description": "Simulated paper trading order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "symbol": { "type": "string" },
+        "market": { "type": "string" },
+        "type": { "type": "string" },
+        "side": { "type": "string" },
+        "quantity": { "type": "number" },
+        "price": { "type": "number" },
+        "stopLoss": { "type": "number" },
+        "takeProfit": { "type": "number" },
+        "fee": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "filledAt": { "type": "string" },
+        "closedAt": { "type": "string" },
+        "closePrice": { "type": "number" },
+        "realizedPnl": { "type": "number" }
+      },
+      "required": ["id", "userId", "symbol", "market", "side", "quantity", "price", "status"]
+    },
+    "TradingJournal": {
+      "title": "TradingJournal",
+      "description": "User trading journal entry with reflection and review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "symbol": { "type": "string" },
+        "market": { "type": "string" },
+        "approach": { "type": "string" },
+        "strategy": { "type": "string" },
+        "entryPrice": { "type": "number" },
+        "exitPrice": { "type": "number" },
+        "stopLoss": { "type": "number" },
+        "takeProfit": { "type": "number" },
+        "plannedRisk": { "type": "number" },
+        "actualResult": { "type": "number" },
+        "tradeRationale": { "type": "string" },
+        "behavioralNotes": { "type": "string" },
+        "mistakes": { "type": "string" },
+        "lessonsLearned": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "aiReview": { "type": "string" }
+      },
+      "required": ["id", "userId", "symbol", "market", "createdAt"]
+    },
+    "SavedStrategy": {
+      "title": "SavedStrategy",
+      "description": "User configured backtesting or trading strategy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "params": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "type"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profile information"
+    },
+    "/userSettings/{userId}": {
+      "schema": "UserSettings",
+      "description": "User risk preferences and application settings"
+    },
+    "/watchlists/{watchlistId}": {
+      "schema": "WatchlistItem",
+      "description": "User watchlists"
+    },
+    "/paperAccounts/{userId}": {
+      "schema": "PaperAccount",
+      "description": "Paper trading account cash balance"
+    },
+    "/paperOrders/{orderId}": {
+      "schema": "PaperOrder",
+      "description": "Paper trading orders and positions"
+    },
+    "/tradingJournals/{journalId}": {
+      "schema": "TradingJournal",
+      "description": "Trading journal records"
+    },
+    "/strategies/{strategyId}": {
+      "schema": "SavedStrategy",
+      "description": "User saved strategies"
+    }
+  }
+}

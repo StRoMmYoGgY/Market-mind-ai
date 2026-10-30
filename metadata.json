@@ -1,0 +1,6 @@
+{
+  "name": "MARKETMIND AI",
+  "description": "Institutional trading intelligence platform for stocks, crypto, and forex with deterministic technical indicators, Gemini research, opportunity scanner, backtester, paper trading, and risk management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
