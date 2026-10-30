@@ -1,8 +1,8 @@
-export type MarketType = 'stocks' | 'crypto' | 'forex';
+export type MarketType = 'stocks' | 'crypto' | 'forex' | 'commodities';
 
 export type MarketDataType = 'live' | 'delayed' | 'historical' | 'end_of_day' | 'reference';
 
-export type Timeframe = '1m' | '5m' | '15m' | '1h' | '4h' | '1d' | '1w';
+export type Timeframe = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | '1d' | '1w' | '1M';
 
 export interface Candle {
   time: number;
@@ -19,6 +19,9 @@ export interface MarketQuote {
   name: string;
   marketType: MarketType;
   price: number;
+  bid?: number;
+  ask?: number;
+  spread?: number;
   open: number;
   high: number;
   low: number;

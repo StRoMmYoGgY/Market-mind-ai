@@ -10,6 +10,11 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
+    // Health / Connectivity Check Document
+    match /test/{docId} {
+      allow read: if true;
+    }
+
     // Users
     match /users/{userId} {
       allow read, write: if isOwner(userId);

@@ -13,7 +13,7 @@ import { TradingJournalView } from './components/views/TradingJournalView';
 import { PerformanceAnalyticsView } from './components/views/PerformanceAnalyticsView';
 import { DataSourcesView } from './components/views/DataSourcesView';
 import { SettingsView } from './components/views/SettingsView';
-import { auth } from './services/firebase';
+import { auth, loginAsGuest } from './services/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
 export default function App() {
@@ -34,13 +34,22 @@ export default function App() {
   });
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        try {
+          const guestUser = await loginAsGuest();
+          setCurrentUser(guestUser);
+        } catch {
+          setCurrentUser(null);
+        }
+      }
     });
     return () => unsub();
   }, []);
 
-  const userId = currentUser?.uid || 'guest';
+  const userId = currentUser?.uid || '';
 
   const handleNavigate = (
     view: string,
